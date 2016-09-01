@@ -1,0 +1,34 @@
+AllCops:
+  RunRailsCops: true
+
+Metrics/LineLength:
+  Max: 120
+
+Style/Documentation:
+  Enabled: false
+
+Style/NonNilCheck:
+  IncludeSemanticChanges: true
+
+AllCops:
+  TargetRubyVersion: 2.3
+  Include:
+    - '**/Rakefile'
+    - '**/config.ru'
+  Exclude:
+    - 'bin/**/*'
+    - 'script/**/*'
+    - 'log/**/*'
+    - 'public/**/*'
+    - 'tmp/**/*'
+    - 'config/unicorn.rb'
+    - 'db/**/*'
+    - 'Rakefile'
+    - 'vendor/bundle/**/*'
+    #- 'spec/**/*'
+  
+Metrics/AbcSize:
+  Max: 30
+
+Metrics/MethodLength:
+  Max: 15

@@ -1,0 +1,24 @@
+#!/bin/bash
+
+echo "rubocop:"
+bundle exec rubocop -D -c .rubocop.yml --fail-fast
+if [ ! $? -eq 0 ]; then
+  echo 'rubocop detected issues!'
+  bundle exec rubocop -a -D -c .rubocop.yml
+  echo 'Tried to auto correct the issues, but must be reviewed manually. Commit aborted!'
+  exit 1
+fi
+
+echo "bundle-audit:"
+#bundle exec bundle-audit check --update
+#if [ ! $? -eq 0 ]; then
+#  echo 'COMMIT ABORTED: Bundle-audit has detected one or more security vulnerabilities, please review them and re-commit your changes.'
+#  exit 1
+#fi
+
+echo "spec:"
+bin/rails test
+if [ ! $? -eq 0 ]; then
+  echo 'COMMIT ABORTED: rspec did not run successfully.'
+  exit 1
+fi
