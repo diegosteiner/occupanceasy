@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'test_helper'
 
 class AccessTest < ActiveSupport::TestCase
@@ -14,4 +15,3 @@ class AccessTest < ActiveSupport::TestCase
     assert_operator(64, :<, access.private_key.size)
   end
 end
-
