@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160901151040) do
+ActiveRecord::Schema.define(version: 20160901192237) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,9 +23,21 @@ ActiveRecord::Schema.define(version: 20160901151040) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "occupancies", force: :cascade do |t|
+    t.integer  "occupancy_type",  default: 0, null: false
+    t.string   "contact_email"
+    t.datetime "begins_at",                   null: false
+    t.datetime "ends_at",                     null: false
+    t.jsonb    "additional_data"
+    t.string   "reference"
+    t.uuid     "occupiable_id",               null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
   create_table "occupiables", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.string   "description"
-    t.uuid     "access_id"
+    t.uuid     "access_id",   null: false
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
