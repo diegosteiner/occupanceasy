@@ -7,10 +7,7 @@ gem 'active_model_serializers', '>= 0.10.0.rc4'
 gem 'figaro'
 
 group :test do
-  #gem 'rspec-rails'
-  gem 'minitest-rails'
   gem 'simplecov', require: false
-  gem 'factory_girl_rails'
 end
 
 group :production do
@@ -22,12 +19,13 @@ end
 
 group :development, :test do
   gem 'factory_girl_rails', require: false
+  gem 'rspec-rails', '~> 3.5'
   gem 'faker', require: false
   gem 'byebug'
   gem 'pry-rails'
   gem 'rubocop', require: false
   gem 'bundler-audit', require: false
-  #gem 'spring-commands-rspec'
+  gem 'spring-commands-rspec'
 end
 
 group :development do
