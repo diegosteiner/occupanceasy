@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 describe 'Api::V1::OccupanciesController', type: :request do
@@ -10,7 +11,7 @@ describe 'Api::V1::OccupanciesController', type: :request do
     it do
       expect(response).to be_ok
       expect(parsed_json['data'].count).to be(10)
-      expect(parsed_json['meta']).to eq({ 'total' => occupancies.count })
+      expect(parsed_json['meta']).to eq('total' => occupancies.count)
     end
   end
 end
