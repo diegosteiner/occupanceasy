@@ -32,6 +32,16 @@ describe OccupancySerializer do
           'ends-at' => occupancy.ends_at.iso8601(3)
         )
       end
+
+      describe 'additional_data' do
+        let(:occupancy) { create(:reservation_with_additional_data) }
+        it do
+          is_expected.to include(
+            'name' => occupancy.additional_data['name'],
+            'organization' => occupancy.additional_data['organization']
+          )
+        end
+      end
     end
 
     describe '["relationships"]' do
