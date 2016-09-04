@@ -87,6 +87,9 @@ GEM
     mime-types-data (3.2016.0521)
     mini_portile2 (2.1.0)
     minitest (5.9.0)
+    minitest-rails (3.0.0)
+      minitest (~> 5.8)
+      railties (~> 5.0)
     nio4r (1.2.1)
     nokogiri (1.6.8)
       mini_portile2 (~> 2.1.0)
@@ -194,6 +197,7 @@ DEPENDENCIES
   figaro
   listen (~> 3.0.5)
   lograge
+  minitest-rails
   pg
   pry-rails
   puma (~> 3.0)

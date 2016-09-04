@@ -1,42 +1,56 @@
 require 'test_helper'
 
-class OccupancyTest < ActiveSupport::TestCase
-  test 'has all attributes' do
-    occupancy = occupancies(:reservation)
-    assert_instance_of(Occupiable, occupancy.occupiable)
-    assert_not_predicate(occupancy.contact_email, :empty?)
+describe Occupancy do
+  let(:occupancy) { create(:reservation) }
+  let(:home) { create(:home) }
+  describe 'attributes' do
+    it do
+      occupancy.occupiable.must_be_instance_of(Occupiable)
+      occupancy.contact_email.wont_be(:empty?)
+    end
   end
 
-  test 'can create a valid occupancy' do
-    occupancy = Occupancy.new
-    assert_not_predicate(occupancy, :valid?)
-    occupancy.occupiable = occupiables(:home)
-    occupancy.begins_at = 1.week.from_now
-    assert_not_predicate(occupancy, :valid?)
-    occupancy.ends_at = 1.day.from_now
-    assert_not_predicate(occupancy, :valid?)
-    occupancy.ends_at = 2.weeks.from_now
-    assert_predicate(occupancy, :valid?)
-    assert(occupancy.save)
-    assert_predicate(occupancy, :reservation?)
+  describe 'factory' do
+    it do
+      occupancy = create(:reservation)
+      occupancy.must_be(:valid?)
+      occupancy.save.must_equal(true)
+    end
   end
 
-  test '#span' do
-    occupancy = occupancies(:reservation)
-    assert_equal(occupancy.begins_at, occupancy.range.begin)
-    assert_equal(occupancy.ends_at, occupancy.range.end)
+  describe 'validations' do
+    it do
+      occupancy = Occupancy.new
+      occupancy.wont_be(:valid?)
+      occupancy.occupiable = create(:home)
+      occupancy.begins_at = 1.week.from_now
+      occupancy.wont_be(:valid?)
+      occupancy.ends_at = 1.day.from_now
+      occupancy.wont_be(:valid?)
+      occupancy.ends_at = 2.weeks.from_now
+      occupancy.must_be(:valid?)
+      occupancy.save.must_equal(true)
+    end
   end
 
-  test 'scope :overlapping' do
-    occupancy = occupancies(:reservation)
-    assert_equal([occupancy.id], Occupancy.overlapping(occupancy.range).map(&:id))
+  describe '#range' do
+    it do
+      occupancy.range.begin.must_equal(occupancy.begins_at)
+      occupancy.range.end.must_equal(occupancy.ends_at)
+    end
   end
 
-  test '#conflicting' do
-    occupancy = occupancies(:overlapping_1)
-    conflicting = occupancies(:overlapping_2)
-    assert_equal(occupancy.conflicting.map(&:id), [conflicting.id])
-    occupancy = occupancies(:reservation)
-    assert_not_predicate(occupancy.conflicting, :any?)
+  describe 'scope :overlapping' do
+    it do
+      Occupancy.overlapping(occupancy.range).map(&:id).must_equal([occupancy.id])
+    end
+  end
+
+  describe '#conflicting' do
+    it do
+      occupancy = create(:reservation, occupiable: home)
+      conflicting = create(:reservation, occupiable: home)
+      occupancy.conflicting.map(&:id).must_equal([conflicting.id])
+    end
   end
 end

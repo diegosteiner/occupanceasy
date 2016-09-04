@@ -3,7 +3,7 @@ require 'test_helper'
 
 class OccupiableTest < ActiveSupport::TestCase
   test 'has all attributes' do
-    occupiable = occupiables(:home)
+    occupiable = create(:home)
     assert_instance_of(Occupiable, occupiable)
     assert_instance_of(Access, occupiable.access)
     assert_not_predicate(occupiable.description, :empty?)

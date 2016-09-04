@@ -8,7 +8,9 @@ gem 'figaro'
 
 group :test do
   #gem 'rspec-rails'
+  gem 'minitest-rails'
   gem 'simplecov', require: false
+  gem 'factory_girl_rails'
 end
 
 group :production do
