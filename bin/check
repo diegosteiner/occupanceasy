@@ -17,7 +17,7 @@ echo "bundle-audit:"
 #fi
 
 echo "spec:"
-bin/rails test
+bin/rspec
 if [ ! $? -eq 0 ]; then
   echo 'COMMIT ABORTED: rspec did not run successfully.'
   exit 1
