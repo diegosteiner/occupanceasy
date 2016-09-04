@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-describe Access do
+describe Access, type: :model do
   describe 'attributes' do
     let(:access) { create(:access) }
 
