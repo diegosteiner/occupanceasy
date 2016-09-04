@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Occupancy < ApplicationRecord
   belongs_to :occupiable, inverse_of: :occupancies
 

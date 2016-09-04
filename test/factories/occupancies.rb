@@ -1,6 +1,7 @@
+# frozen_string_literal: true
 FactoryGirl.define do
   sequence :email do |n|
-    "reservation#{n}@occupanceasy.ch"  
+    "reservation#{n}@occupanceasy.ch"
   end
 
   factory :reservation do
