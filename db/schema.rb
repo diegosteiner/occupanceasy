@@ -17,22 +17,26 @@ ActiveRecord::Schema.define(version: 20160901192237) do
   enable_extension "uuid-ossp"
 
   create_table "accesses", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
-    t.string   "private_key"
+    t.string   "private_key", null: false
     t.string   "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
 
-  create_table "occupancies", force: :cascade do |t|
-    t.integer  "occupancy_type",  default: 0, null: false
+  create_table "occupancies", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.integer  "occupancy_type",  default: 0,                    null: false
+    t.string   "type",            default: "ReservationRequest", null: false
     t.string   "contact_email"
-    t.datetime "begins_at",                   null: false
-    t.datetime "ends_at",                     null: false
+    t.datetime "begins_at",                                      null: false
+    t.datetime "ends_at",                                        null: false
     t.jsonb    "additional_data"
     t.string   "reference"
-    t.uuid     "occupiable_id",               null: false
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.uuid     "occupiable_id",                                  null: false
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
+    t.index ["begins_at"], name: "index_occupancies_on_begins_at", using: :btree
+    t.index ["ends_at"], name: "index_occupancies_on_ends_at", using: :btree
+    t.index ["type"], name: "index_occupancies_on_type", using: :btree
   end
 
   create_table "occupiables", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|

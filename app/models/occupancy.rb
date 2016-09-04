@@ -1,8 +1,6 @@
 class Occupancy < ApplicationRecord
   belongs_to :occupiable, inverse_of: :occupancies
 
-  enum occupancy_type: [:reservation, :closedown]
-
   scope :overlapping, (lambda do |range|
     where('(begins_at, ends_at) OVERLAPS (?::timestamp, ?::timestamp)', range.begin, range.end)
   end)
@@ -19,6 +17,6 @@ class Occupancy < ApplicationRecord
   end
 
   def conflicting
-    occupiable.occupancies.overlapping(range).where.not(id: id)
+    occupiable.occupancies.overlapping(range).where.not(id: id, type: ReservationRequest.sti_name)
   end
 end

@@ -1,0 +1,3 @@
+class ReservationRequest < Occupancy
+  
+end
