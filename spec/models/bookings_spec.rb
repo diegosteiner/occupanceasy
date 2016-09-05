@@ -7,6 +7,7 @@ describe Booking, type: :model do
 
   describe 'attributes' do
     it do
+      expect(booking).to be_a(Booking)
       expect(booking.occupiable).to be_instance_of(Occupiable)
       expect(booking.contact_email).not_to be_empty
     end
@@ -22,7 +23,7 @@ describe Booking, type: :model do
 
   describe 'validations' do
     it do
-      booking = Occupancy.new
+      booking = Booking.new
       expect(booking).not_to be_valid
       booking.occupiable = create(:home)
       booking.begins_at = 1.week.from_now
