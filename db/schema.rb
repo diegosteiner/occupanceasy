@@ -23,8 +23,7 @@ ActiveRecord::Schema.define(version: 20160901192237) do
     t.datetime "updated_at",  null: false
   end
 
-  create_table "occupancies", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
-    t.integer  "occupancy_type",  default: 0,                    null: false
+  create_table "bookings", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.string   "type",            default: "ReservationRequest", null: false
     t.string   "contact_email"
     t.datetime "begins_at",                                      null: false
@@ -32,11 +31,13 @@ ActiveRecord::Schema.define(version: 20160901192237) do
     t.jsonb    "additional_data"
     t.string   "reference"
     t.uuid     "occupiable_id",                                  null: false
+    t.boolean  "blocking",        default: false
     t.datetime "created_at",                                     null: false
     t.datetime "updated_at",                                     null: false
-    t.index ["begins_at"], name: "index_occupancies_on_begins_at", using: :btree
-    t.index ["ends_at"], name: "index_occupancies_on_ends_at", using: :btree
-    t.index ["type"], name: "index_occupancies_on_type", using: :btree
+    t.index ["begins_at"], name: "index_bookings_on_begins_at", using: :btree
+    t.index ["blocking"], name: "index_bookings_on_blocking", using: :btree
+    t.index ["ends_at"], name: "index_bookings_on_ends_at", using: :btree
+    t.index ["type"], name: "index_bookings_on_type", using: :btree
   end
 
   create_table "occupiables", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|

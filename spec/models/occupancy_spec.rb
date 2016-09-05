@@ -20,21 +20,6 @@ describe Occupancy, type: :model do
     end
   end
 
-  describe 'validations' do
-    it do
-      occupancy = Occupancy.new
-      expect(occupancy).not_to be_valid
-      occupancy.occupiable = create(:home)
-      occupancy.begins_at = 1.week.from_now
-      expect(occupancy).not_to be_valid
-      occupancy.ends_at = 1.day.from_now
-      expect(occupancy).not_to be_valid
-      occupancy.ends_at = 2.weeks.from_now
-      expect(occupancy).to be_valid
-      expect(occupancy.save).to eq(true)
-    end
-  end
-
   describe '#range' do
     it do
       expect(occupancy.range.begin).to eq(occupancy.begins_at)
@@ -43,8 +28,13 @@ describe Occupancy, type: :model do
   end
 
   describe 'scope :overlapping' do
-    subject { Occupancy.overlapping(occupancy.range).map(&:id) }
-    it { is_expected.to eq([occupancy.id]) }
+    context 'with overlapping occupancies' do
+      let!(:reservation_request) do
+        create(:reservation_request, occupiable: home, begins_at: occupancy.begins_at, ends_at: occupancy.ends_at)
+      end
+      subject { Occupancy.overlapping(occupancy.range).map(&:id) }
+      it { is_expected.to eq([occupancy.id]) }
+    end
   end
 
   describe '#conflicting' do
