@@ -1,0 +1,38 @@
+---
+IrresponsibleModule:
+  enabled: false
+Attribute:
+  enabled: false
+NestedIterators:
+  max_allowed_nesting: 2
+"app/helpers":
+  UtilityFunction:
+    enabled: false
+"app/services":
+  UtilityFunction:
+    enabled: false
+  DataClump:
+    enabled: false
+
+exclude_paths:
+  - tmp
+  - spec
+  - vendor
+  - log
+  - coverage
+  - config
+  - bin
+  - db/migrate
+
+UncommunicativeModuleName:
+  accept:
+    - V1
+
+FeatureEnvy:
+  enabled: false
+
+LongParameterList:
+  max_params: 4
+
+TooManyStatements:
+  max_statements: 10

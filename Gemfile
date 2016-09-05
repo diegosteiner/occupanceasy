@@ -6,10 +6,6 @@ gem 'pg'
 gem 'active_model_serializers', '>= 0.10.0.rc4'
 gem 'figaro'
 
-group :test do
-  gem 'simplecov', require: false
-end
-
 group :production do
   gem 'lograge'
   gem 'puma', '~> 3.0'
@@ -20,11 +16,8 @@ end
 group :development, :test do
   gem 'factory_girl_rails', require: false
   gem 'rspec-rails', '~> 3.5'
-  gem 'faker', require: false
   gem 'byebug'
   gem 'pry-rails'
-  gem 'rubocop', require: false
-  gem 'bundler-audit', require: false
   gem 'spring-commands-rspec'
 end
 
@@ -34,4 +27,12 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'thin'
+end
+
+group :lint do
+  gem 'simplecov', require: false
+  gem 'brakeman', require: false
+  gem 'reek', require: false
+  gem 'rubocop', require: false
+  gem 'bundler-audit', require: false
 end

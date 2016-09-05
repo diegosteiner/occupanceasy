@@ -9,6 +9,7 @@ describe Occupancy, type: :model do
     it do
       expect(occupancy.occupiable).to be_instance_of(Occupiable)
       expect(occupancy.contact_email).not_to be_empty
+      expect(occupancy.blocking).to be(true)
     end
   end
 

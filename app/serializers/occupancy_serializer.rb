@@ -4,7 +4,7 @@ class OccupancySerializer < ApplicationSerializer
   belongs_to :occupiable
 
   def attributes(attrs)
-    return super unless object.additional_data.present?
-    object.additional_data.merge(super(attrs))
+    additional_data = object.additional_data || {}
+    additional_data.merge(super(attrs))
   end
 end

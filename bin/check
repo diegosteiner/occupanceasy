@@ -9,12 +9,19 @@ if [ ! $? -eq 0 ]; then
   exit 1
 fi
 
+echo "reek:"
+bundle exec reek
+if [ ! $? -eq 0 ]; then
+  echo 'COMMIT ABORTED: reek has detected one or more security vulnerabilities, please review them and re-commit your changes.'
+  exit 1
+fi
+
 echo "bundle-audit:"
-#bundle exec bundle-audit check --update
-#if [ ! $? -eq 0 ]; then
-#  echo 'COMMIT ABORTED: Bundle-audit has detected one or more security vulnerabilities, please review them and re-commit your changes.'
-#  exit 1
-#fi
+bundle exec bundle-audit check --update
+if [ ! $? -eq 0 ]; then
+  echo 'COMMIT ABORTED: Bundle-audit has detected one or more security vulnerabilities, please review them and re-commit your changes.'
+  exit 1
+fi
 
 echo "spec:"
 bin/rspec

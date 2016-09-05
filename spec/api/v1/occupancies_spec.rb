@@ -5,6 +5,7 @@ describe 'Api::V1::OccupanciesController', type: :request do
   describe 'get list of all occupancies of a occupiable' do
     let(:occupiable) { create(:home) }
     let!(:occupancies) { create_list(:reservation, 10, occupiable: occupiable) }
+    let!(:reservation_request) { create(:reservation_request, occupiable: occupiable) }
     subject(:parsed_json) { JSON.parse(response.body) }
     before { get("/api/v1/occupiables/#{occupiable.to_param}/occupancies") }
 
