@@ -25,11 +25,11 @@ describe OccupancySerializer do
       subject(:attributes) { data['attributes'] }
       it do
         is_expected.to include(
-          'contact-email' => occupancy.contact_email,
-          'created-at' => occupancy.created_at.iso8601(3),
-          'updated-at' => occupancy.updated_at.iso8601(3),
-          'begins-at' => occupancy.begins_at.iso8601(3),
-          'ends-at' => occupancy.ends_at.iso8601(3)
+          'contact_email' => occupancy.contact_email,
+          'created_at' => occupancy.created_at.iso8601(3),
+          'updated_at' => occupancy.updated_at.iso8601(3),
+          'begins_at' => occupancy.begins_at.iso8601(3),
+          'ends_at' => occupancy.ends_at.iso8601(3)
         )
       end
 

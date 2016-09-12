@@ -29,18 +29,18 @@ describe 'Api::V1::OccupanciesController', type: :request do
     end
 
     context 'with invalid occupancy' do
-      before { get("/api/v1/occupancies/404") }
+      before { get('/api/v1/occupancies/404') }
       it do
         expect(response.status).to eq(404)
-        expect(parsed_json['errors']).to include({ 'status' => 404 })
+        expect(parsed_json['errors']).to include('status' => 404)
       end
     end
   end
 
-  def to_jsonapi(occupancy) 
-    { 
-      data: { 
-        type: occupancy.model_name.plural, 
+  def to_jsonapi(occupancy)
+    {
+      data: {
+        type: occupancy.model_name.plural,
         attributes: extract_attributes(occupancy)
       }
     }.deep_stringify_keys
@@ -50,7 +50,6 @@ describe 'Api::V1::OccupanciesController', type: :request do
     attributes = occupancy.additional_data || {}
     attributes.merge!(occupancy.attributes.except(*%w(id created_at updated_at type additional_data blocking)))
   end
-
 
   describe '#create' do
     let(:occupancy) { build(:reservation, occupiable: occupiable) }
@@ -70,9 +69,6 @@ describe 'Api::V1::OccupanciesController', type: :request do
         expect(response.status).to eq(422)
         expect(Occupancy.count).to be(0)
       end
-
     end
   end
-
-
 end

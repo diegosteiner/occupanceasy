@@ -20,7 +20,7 @@ module Api
         if @occupancy.save
           render json: @occupancy, status: :created
         else
-          render_422(@occupancy)
+          render_unprocessable(@occupancy)
         end
       end
 
