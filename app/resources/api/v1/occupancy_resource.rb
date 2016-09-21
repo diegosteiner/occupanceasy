@@ -3,7 +3,7 @@ module Api
   module V1
     class OccupancyResource < ApplicationResource
       attributes :begins_at, :ends_at, :created_at, :updated_at, :contact_email
-      belongs_to :occupiable
+      has_one :occupiable
 
       def attributes(attrs)
         additional_data = object.additional_data || {}
