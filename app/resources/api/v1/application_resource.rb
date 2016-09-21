@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module Api
   module V1
-    class ApplicationController < ::JSONAPI::ResourceController
+    class ApplicationResource < JSONAPI::Resource
     end
   end
 end

@@ -3,8 +3,8 @@ ruby File.read('.ruby-version').strip
 
 gem 'rails', '~> 5.0'
 gem 'pg'
-gem 'active_model_serializers', '>= 0.10.0.rc4'
 gem 'figaro'
+gem 'jsonapi-resources'
 
 group :production do
   gem 'lograge'

@@ -2,9 +2,10 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
-      resources :occupiables, only: [] do
-        resources :occupancies, shallow: true
+      jsonapi_resources :occupiables do
+        jsonapi_relationships
       end
+      jsonapi_resources :occupancies
     end
   end
 end
