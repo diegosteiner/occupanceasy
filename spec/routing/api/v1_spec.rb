@@ -5,13 +5,13 @@ describe '/api/v1', type: :routing do
   let(:occupiable) { create(:home) }
 
   describe '/api/v1/occupiables' do
-    let(:base_path) { "/api/v1/occupiables" }
+    let(:base_path) { '/api/v1/occupiables' }
 
     it do
       expect(get: base_path).to route_to('api/v1/occupiables#index')
       expect(post: base_path).to route_to('api/v1/occupiables#create')
       expect(get: "#{base_path}/#{occupiable.to_param}").to route_to('api/v1/occupiables#show',
-                                                                   id: occupiable.to_param)
+                                                                     id: occupiable.to_param)
     end
   end
 

@@ -7,11 +7,11 @@ def headers
   }
 end
 
-def occupiables_path(id = nil, relationships = nil, params = {}) 
+def occupiables_path(id = nil, relationships = nil, params = {})
   path = String.new('/api/v1/occupiables')
   path << '/' << id.to_s if id.present?
   path << '/' << relationships.to_s if relationships.present?
-  path << '?' << (params.map { |key, value| "#{key}=#{value}" }.join('&')) if params.present?
+  path << '?' << params.map { |key, value| "#{key}=#{value}" }.join('&') if params.present?
   path
 end
 

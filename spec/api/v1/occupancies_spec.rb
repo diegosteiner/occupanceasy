@@ -28,7 +28,7 @@ describe 'Api::V1::OccupanciesController', type: :request do
   xdescribe '#index' do
     let!(:occupancies) { create_list(:reservation, 10, occupiable: occupiable) }
     let!(:reservation_request) { create(:reservation_request, occupiable: occupiable) }
-    before { get("/api/v1/occupancies") }
+    before { get('/api/v1/occupancies') }
 
     it do
       expect(response).to be_ok
