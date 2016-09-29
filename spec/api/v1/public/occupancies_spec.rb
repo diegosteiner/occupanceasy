@@ -7,7 +7,9 @@ def headers
   }
 end
 
-describe 'Api::V1::OccupanciesController', type: :request do
+BASE_PATH = '/api/v1/public'
+
+describe 'Api::V1::Public::OccupanciesController', type: :request do
   let(:occupiable) { create(:home) }
   subject(:parsed_json) { JSON.parse(response.body) }
   let(:data) { parsed_json['data'] }
@@ -15,10 +17,11 @@ describe 'Api::V1::OccupanciesController', type: :request do
 
   describe '#index' do
     let!(:occupancies) { create_list(:reservation, 10, occupiable: occupiable) }
+    let!(:other_occupancies) { create(:reservation) }
     let!(:reservation_request) { create(:reservation_request, occupiable: occupiable) }
 
     context 'as resource of occupiable' do
-      before { get("/api/v1/occupiables/#{occupiable.to_param}/occupancies", headers: headers) }
+      before { get("#{BASE_PATH}/occupiables/#{occupiable.to_param}/occupancies", headers: headers) }
       it do
         expect(response).to be_ok
         expect(response.content_type).to eq('application/vnd.api+json')
@@ -28,31 +31,21 @@ describe 'Api::V1::OccupanciesController', type: :request do
     end
 
     context 'top-level resource' do
-      before { get("/api/v1/occupancies", headers: headers) }
-      it do
-        expect(response.code).to be('404')
-        expect(response.content_type).to eq('application/vnd.api+json')
-      end
+      it { expect { get("#{BASE_PATH}/occupancies", headers: headers) }.to raise_error(ActionController::RoutingError) }
     end
   end
 
-  xdescribe '#show' do
-    let(:occupancy) { create(:reservation, occupiable: occupiable) }
+  describe '#show' do
+    let!(:occupancy) { create(:reservation, occupiable: occupiable) }
 
-    context 'with valid occupancy' do
-      before { get("/api/v1/occupancies/#{occupancy.to_param}") }
-      it do
-        expect(response).to be_ok
-        expect(parsed_json['data']['type']).to eq('reservations')
-      end
+    before { get("#{BASE_PATH}/occupancies/#{occupancy.to_param}") }
+    it do
+      expect(response).to be_ok
+      expect(parsed_json['data']['type']).to eq('reservations')
     end
 
     context 'with invalid occupancy' do
-      before { get('/api/v1/occupancies/404') }
-      it do
-        expect(response.status).to eq(404)
-        expect(parsed_json['errors']).to include('status' => 404)
-      end
+      it { expect { get("#{BASE_PATH}/occupancies/404", headers: headers) }.to raise_error(ActionController::RoutingError) }
     end
   end
 
