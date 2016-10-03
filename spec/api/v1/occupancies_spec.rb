@@ -7,7 +7,7 @@ def headers
   }
 end
 
-describe 'Api::V1::OccupanciesController', type: :request do
+xdescribe 'Api::V1::OccupanciesController', type: :request do
   let(:occupiable) { create(:home) }
   subject(:parsed_json) { JSON.parse(response.body) }
   let(:data) { parsed_json['data'] }
@@ -28,7 +28,7 @@ describe 'Api::V1::OccupanciesController', type: :request do
     end
 
     context 'top-level resource' do
-      before { get("/api/v1/occupancies", headers: headers) }
+      before { get('/api/v1/occupancies', headers: headers) }
       it do
         expect(response.code).to be('404')
         expect(response.content_type).to eq('application/vnd.api+json')

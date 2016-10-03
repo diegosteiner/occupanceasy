@@ -1,30 +1,47 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-describe '/api/v1/public', type: :routing do
-  PATH = '/api/v1/public'
-  let!(:occupiable) { create(:occupiable) }
+describe '/api/v1/', type: :routing do
+  BASE_PATH = '/api/v1'
+  let(:occupiable) { create(:occupiable) }
 
-  describe "occupiables" do
+  describe 'occupiables/' do
     describe '#show' do
-      let(:path) { "#{PATH}/occupiables/#{occupiable.to_param}" }
-      it do
-        expect(get: path).to route_to('api/v1/public/occupiables#show',
-                                      id: occupiable.to_param)
-      end
+      subject { get("#{BASE_PATH}/occupiables/#{occupiable.to_param}") }
+      it { is_expected.to route_to(json_api_route('api/v1/occupiables#show', id: occupiable.to_param)) }
     end
 
-    describe '#occupancies' do
-      let(:path) { "#{PATH}/occupiables/#{occupiable.to_param}/bookings" }
+    describe '/bookings' do
+      subject { get("#{BASE_PATH}/occupiables/#{occupiable.to_param}/bookings") }
       it do
-        expect(get: path).to route_to(
-          relationship: 'bookings',
-          source: 'api/v1/public/occupiables',
-          action: 'get_related_resources',
-          controller: 'api/v1/public/bookings',
-          occupiable_id: occupiable.to_param
+        is_expected.to route_to(
+          json_api_related_route('api/v1/bookings', 'api/v1/occupiables', occupiable_id: occupiable.to_param)
         )
       end
     end
   end
+
+  describe 'bookings/' do
+    let(:booking) { create(:reservation) }
+
+    describe '#show' do
+      subject { get("#{BASE_PATH}/bookings/#{booking.to_param}") }
+      it { is_expected.to route_to(json_api_route('api/v1/bookings#show', id: booking.to_param)) }
+    end
+  end
+end
+
+def json_api_route(controller_action, params = {})
+  controller, action = controller_action.split('#')
+  {
+    controller: controller,
+    action: action
+  }.merge(params)
+end
+
+def json_api_related_route(controller, source, params = {})
+  {
+    relationship: controller.split('/').last,
+    source: source
+  }.merge(json_api_route("#{controller}#get_related_resources", params))
 end

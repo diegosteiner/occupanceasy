@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
+BASE_PATH = '/api/v1'
 def headers
   {
     'HTTP_ACCEPT' => 'application/vnd.api+json'
@@ -15,7 +16,7 @@ def occupiables_path(id = nil, relationships = nil, params = {})
   path
 end
 
-describe 'Api::V1::OccupanciesController', type: :request do
+describe Api::V1::BookingsController, type: :request do
   let(:occupiable) { create(:home) }
   subject(:parsed_json) { JSON.parse(response.body) }
   let(:data) { parsed_json['data'] }
@@ -39,14 +40,14 @@ describe 'Api::V1::OccupanciesController', type: :request do
     end
   end
 
-  describe '#show/occupancies' do
-    let!(:occupancies) { create_list(:reservation, 3, occupiable: occupiable) }
-    before { get(occupiables_path(occupiable.to_param, :occupancies), headers: headers) }
+  describe '#show/bookings' do
+    let!(:bookings) { create_list(:reservation, 3, occupiable: occupiable) }
+    before { get(occupiables_path(occupiable.to_param, :bookings), headers: headers) }
 
     it do
       expect(response).to be_ok
       expect(response.content_type).to eq('application/vnd.api+json')
-      expect(data.count).to be(occupancies.count)
+      expect(data.count).to be(bookings.count)
     end
   end
 end
