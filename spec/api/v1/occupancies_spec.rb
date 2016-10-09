@@ -7,7 +7,7 @@ def headers
   }
 end
 
-xdescribe 'Api::V1::OccupanciesController', type: :request do
+describe Api::V1::BookingsController, type: :request do
   let(:occupiable) { create(:home) }
   subject(:parsed_json) { JSON.parse(response.body) }
   let(:data) { parsed_json['data'] }

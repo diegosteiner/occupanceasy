@@ -6,9 +6,9 @@ Rails.application.routes.draw do
         jsonapi_relationships
       end
       jsonapi_resources :reservation_requests, except: :index
-      jsonapi_resources :bookings, except: :index
 
-      namespace :public do
+      namespace :manage do
+        jsonapi_resources :bookings, except: :index
       end
       # jsonapi_resources :occupancies, except: :index
     end
