@@ -7,7 +7,7 @@ describe '/api/v1/', type: :routing do
   subject { get(path) }
 
   describe 'occupiables' do
-    let(:resource_path) {  base_path + 'occupiables/' }
+    let(:resource_path) { base_path + 'occupiables/' }
 
     describe '#show' do
       let(:path) { resource_path + occupiable.to_param }
@@ -25,7 +25,7 @@ describe '/api/v1/', type: :routing do
   end
 
   describe 'reservation_requests' do
-    let(:resource_path) {  base_path + 'reservation_requests/' }
+    let(:resource_path) { base_path + 'reservation-requests/' }
     let(:booking) { create(:reservation_request) }
     let(:path) { resource_path + booking.to_param }
 
@@ -53,7 +53,7 @@ describe '/api/v1/', type: :routing do
     let(:base_path) { '/api/v1/manage/' }
 
     describe 'bookings' do
-      let(:resource_path) {  base_path + 'bookings/' }
+      let(:resource_path) { base_path + 'bookings/' }
       let(:booking) { create(:reservation) }
       let(:path) { resource_path + booking.to_param }
 

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module Api
   module V1
-    class OccupanciesController < ApplicationController
+    class ReservationRequestsController < ApplicationController
     end
   end
 end
