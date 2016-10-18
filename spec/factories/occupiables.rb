@@ -2,7 +2,7 @@
 FactoryGirl.define do
   factory :occupiable do
     description 'Occupiable'
-    access
+    api_access
 
     factory :home do
       description 'Pfadiheim'

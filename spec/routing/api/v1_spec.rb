@@ -76,6 +76,31 @@ describe '/api/v1/', type: :routing do
         it { is_expected.to route_to(json_api_route('api/v1/manage/bookings#create')) }
       end
     end
+
+    describe 'occupiables' do
+      let(:resource_path) { base_path + 'occupiables/' }
+      let(:occupiable) { create(:home) }
+      let(:path) { resource_path + occupiable.to_param }
+
+      describe '#show' do
+        it { is_expected.to route_to(json_api_route('api/v1/manage/occupiables#show', id: occupiable.to_param)) }
+      end
+
+      describe '#update' do
+        subject { patch(path) }
+        it { is_expected.to route_to(json_api_route('api/v1/manage/occupiables#update', id: occupiable.to_param)) }
+      end
+
+      describe '#destroy' do
+        subject { delete(path) }
+        it { is_expected.to route_to(json_api_route('api/v1/manage/occupiables#destroy', id: occupiable.to_param)) }
+      end
+
+      describe '#create' do
+        subject { post(resource_path) }
+        it { is_expected.to route_to(json_api_route('api/v1/manage/occupiables#create')) }
+      end
+    end
   end
 end
 

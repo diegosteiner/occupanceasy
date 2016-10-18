@@ -1,32 +1,6 @@
 # frozen_string_literal: true
 require 'rails_helper'
-
-def headers
-  {
-    'HTTP_ACCEPT' => 'application/vnd.api+json'
-  }
-end
-
-def parsed_json
-  subject
-  JSON.parse(response.body)
-end
-
-def data
-  parsed_json['data']
-end
-
-def data_ids
-  data.map { |item| item['id'] }
-end
-
-shared_examples 'valid response' do
-  it do
-    expect(subject)
-    expect(response).to be_ok
-    expect(response.content_type).to eq('application/vnd.api+json')
-  end
-end
+require 'support/jsonapi_helper'
 
 shared_examples 'valid bookings' do
   it { expect(data_ids).to contain_exactly(*bookings.map(&:id)) }

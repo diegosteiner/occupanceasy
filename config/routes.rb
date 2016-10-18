@@ -8,7 +8,10 @@ Rails.application.routes.draw do
       jsonapi_resources :reservation_requests, except: :index
 
       namespace :manage do
-        jsonapi_resources :bookings, except: :index
+        jsonapi_resources :bookings
+        jsonapi_resources :occupiables do
+          jsonapi_relationships
+        end
       end
       # jsonapi_resources :occupancies, except: :index
     end

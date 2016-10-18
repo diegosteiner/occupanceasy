@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20160901192237) do
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
 
-  create_table "accesses", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+  create_table "api_accesses", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.string   "private_key", null: false
     t.string   "description"
     t.datetime "created_at",  null: false
@@ -42,9 +42,9 @@ ActiveRecord::Schema.define(version: 20160901192237) do
 
   create_table "occupiables", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.string   "description"
-    t.uuid     "access_id",   null: false
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.uuid     "api_access_id", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
 end
