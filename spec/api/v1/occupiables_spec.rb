@@ -8,17 +8,16 @@ end
 
 describe Api::V1::OccupiablesController, type: :request do
   let(:occupiable) { create(:home) }
-  let(:params) { {} }
 
   describe '#show' do
-    subject { get(api_v1_occupiable_path(occupiable), headers: headers) }
-
+    subject! { get(api_v1_occupiable_path(occupiable), headers: headers) }
     it_behaves_like 'valid response'
   end
 
   describe '#show/bookings' do
-    subject { get(api_v1_occupiable_bookings_path(occupiable, params), headers: headers) }
+    let(:params) {}
     let!(:bookings) { create_list(:reservation, 2, occupiable: occupiable, begins_at: 3.weeks.from_now) }
+    subject! { get(api_v1_occupiable_bookings_path(occupiable), headers: headers, params: params) }
 
     it_behaves_like 'valid response'
     it { expect(data.count).to be(bookings.count) }

@@ -2,9 +2,7 @@
 module Api
   module V1
     module Manage
-      class BookingResource < ApplicationResource
-        attributes :begins_at, :ends_at, :blocking
-        has_one :occupiable
+      class BookingResource < Api::V1::BookingResource
       end
     end
   end

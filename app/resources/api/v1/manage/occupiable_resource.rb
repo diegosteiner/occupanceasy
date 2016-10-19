@@ -6,6 +6,10 @@ module Api
         def self.records(options = {})
           options[:context][:api_access].occupiables
         end
+
+        before_save do
+          @model.api_access = context[:api_access]
+        end
       end
     end
   end
