@@ -3,6 +3,7 @@ module Api
   module V1
     class BookingResource < ApplicationResource
       attributes :begins_at, :ends_at, :blocking, :booking_type
+      model_hint model: Booking, resource: BookingResource
       has_one :occupiable
 
       def booking_type
