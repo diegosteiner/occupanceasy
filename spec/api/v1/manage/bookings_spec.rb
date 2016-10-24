@@ -36,28 +36,30 @@ describe Api::V1::Manage::BookingsController, type: :request do
   end
 
   describe '#create' do
-    let(:booking) { build(:reservation, occupiable: occupiable) }
-    let(:attributes) { booking.attributes.slice(*%w(begins_at ends_at contact_email booking_type)) }
-    let(:relationships) { { occupiable: { data: { type: :occupiables, id: booking.occupiable_id } } } }
-    let(:params) { { data: { type: :bookings, attributes: attributes, relationships: relationships } }.to_json }
+    let(:new_booking) { build(:reservation, occupiable: occupiable) }
+    let(:params) { JsonApiHelper.new.booking_to_jsonapi(new_booking) }
     subject! { post(api_v1_manage_bookings_path, headers: headers(token), params: params) }
 
     it { expect(response.status).to be 201 }
-    it { expect(Booking.last.contact_email).to eq booking.contact_email }
+    it { expect(Booking.last.contact_email).to eq new_booking.contact_email }
   end
 
-  xdescribe '#update' do
-    let(:changes) { { 'description' => 'new value' } }
-    let(:params) { { data: { type: :occupiables, id: occupiable.id, attributes: changes } }.to_json }
-    subject! { patch(api_v1_manage_occupiable_path(occupiable), headers: headers(token), params: params) }
+  describe '#update' do
+    let(:booking) { reservations.sample }
+    let(:changes) { { contact_email: 'someone@different.ch' } }
+    let(:changed_booking) { booking.tap { |b| b.attributes = changes } }
+    let(:params) { JsonApiHelper.new.booking_to_jsonapi(changed_booking) }
+    subject! { patch(api_v1_manage_booking_path(changed_booking), headers: headers(token), params: params) }
 
     it_behaves_like 'valid response'
-    it { expect(data['attributes']).to include changes }
+    it { expect(data['attributes']).to include changes.stringify_keys }
   end
 
-  xdescribe '#delete' do
-    subject! { delete(api_v1_manage_occupiable_path(occupiable), headers: headers(token), params: {}) }
+  describe '#delete' do
+    let(:booking) { reservations.sample }
+    subject! { delete(api_v1_manage_booking_path(booking), headers: headers(token), params: {}) }
 
     it { expect(response.status).to be 204 }
+    it { expect(Booking.all.map(&:id)).not_to include booking.id }
   end
 end

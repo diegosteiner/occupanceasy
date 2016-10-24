@@ -31,3 +31,11 @@ shared_examples 'unauthorized response' do
   it { expect(response.content_type).to eq(CONTENT_TYPE) }
   it { expect(response.status).to be 403 }
 end
+
+class JsonApiHelper
+  def booking_to_jsonapi(booking)
+    attributes = booking.attributes.slice(*%w(begins_at ends_at contact_email booking_type))
+    relationships = { occupiable: { data: { type: :occupiables, id: booking.occupiable_id } } }
+    { data: { id: booking.to_param, type: :bookings, attributes: attributes, relationships: relationships } }.to_json
+  end
+end
