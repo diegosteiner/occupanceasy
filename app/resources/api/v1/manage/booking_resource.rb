@@ -3,6 +3,8 @@ module Api
   module V1
     module Manage
       class BookingResource < Api::V1::BookingResource
+        attributes :contact_email
+
         def self.records(options = {})
           Booking.where(id: options[:context][:api_access].occupiables.map(&:booking_ids))
         end

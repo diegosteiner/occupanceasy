@@ -24,23 +24,26 @@ describe Api::V1::Manage::BookingsController, type: :request do
 
     it_behaves_like 'valid response'
     it { expect(data.map { |d| d['type'] }.uniq).to contain_exactly('bookings') }
-    it { puts response.body }
     it { expect(data_ids).to contain_exactly(*bookings.map(&:id)) }
   end
 
-  xdescribe '#show' do
-    let!(:other_occupiable) { create(:home) }
-    subject! { get(api_v1_manage_occupiable_path(occupiable), headers: headers(token)) }
+  describe '#show' do
+    let!(:booking) { reservations.sample }
+    subject! { get(api_v1_manage_booking_path(booking), headers: headers(token)) }
 
     it_behaves_like 'valid response'
+    it { expect(data).to include('id' => booking.to_param) }
   end
 
-  xdescribe '#create' do
-    let(:occupiable) { build(:home) }
-    let(:params) { { data: { type: :occupiables, attributes: occupiable.attributes.slice('description') } }.to_json }
-    subject! { post(api_v1_manage_occupiables_path, headers: headers(token), params: params) }
+  describe '#create' do
+    let(:booking) { build(:reservation, occupiable: occupiable) }
+    let(:attributes) { booking.attributes.slice(*%w(begins_at ends_at contact_email booking_type)) }
+    let(:relationships) { { occupiable: { data: { type: :occupiables, id: booking.occupiable_id } } } }
+    let(:params) { { data: { type: :bookings, attributes: attributes, relationships: relationships } }.to_json }
+    subject! { post(api_v1_manage_bookings_path, headers: headers(token), params: params) }
 
     it { expect(response.status).to be 201 }
+    it { expect(Booking.last.contact_email).to eq booking.contact_email }
   end
 
   xdescribe '#update' do
