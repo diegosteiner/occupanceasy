@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 class Booking < ApplicationRecord
   belongs_to :occupiable, inverse_of: :bookings
+  enum booking_types: [:reservation_request, :reservation, :closedown]
 
   scope :overlapping, (lambda do |range|
     where('(begins_at, ends_at) OVERLAPS (?::timestamp, ?::timestamp)', range.begin, range.end)

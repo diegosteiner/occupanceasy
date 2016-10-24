@@ -23,8 +23,8 @@ describe Api::V1::Manage::BookingsController, type: :request do
     subject! { get(api_v1_manage_bookings_path, headers: headers(token)) }
 
     it_behaves_like 'valid response'
-    it { expect(data.map { |d| d['type'] }).to contain_exactly('bookings') }
-    it {  puts response.body }
+    it { expect(data.map { |d| d['type'] }.uniq).to contain_exactly('bookings') }
+    it { puts response.body }
     it { expect(data_ids).to contain_exactly(*bookings.map(&:id)) }
   end
 

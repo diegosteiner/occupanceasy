@@ -6,10 +6,6 @@ module Api
       model_hint model: Booking, resource: BookingResource
       has_one :occupiable
 
-      def booking_type
-        @model.type
-      end
-
       filter :begins_after, default: Time.zone.now.beginning_of_month,
                             apply: lambda { |records, value, _options|
                                      records.where(Booking.arel_table[:begins_at].gteq(value.last))

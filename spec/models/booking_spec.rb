@@ -17,13 +17,13 @@ describe Booking, type: :model do
     it do
       booking = create(:booking)
       expect(booking).to be_valid
-      expect(booking.save).to eq(true)
+      expect(booking.save).to eq true
     end
   end
 
   describe 'validations' do
     it do
-      booking = Booking.new
+      booking = Booking.new(booking_type: Booking.booking_types[:reservation])
       expect(booking).not_to be_valid
       booking.occupiable = create(:home)
       booking.begins_at = 1.week.from_now

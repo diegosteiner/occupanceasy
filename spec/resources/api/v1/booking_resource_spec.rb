@@ -19,7 +19,7 @@ describe Api::V1::BookingResource do
           {
             begins_at: booking.begins_at,
             ends_at: booking.ends_at,
-            booking_type: booking.type,
+            booking_type: booking.booking_type,
             blocking: booking.blocking
           }.stringify_keys
         end
