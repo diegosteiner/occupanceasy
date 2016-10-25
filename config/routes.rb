@@ -5,7 +5,7 @@ Rails.application.routes.draw do
       jsonapi_resources :occupiables, only: :show do
         jsonapi_relationships only: :bookings
       end
-      jsonapi_resources :reservation_requests, except: :index
+      jsonapi_resources :bookings, only: :create
 
       namespace :manage do
         jsonapi_resources :bookings

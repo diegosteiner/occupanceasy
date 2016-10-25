@@ -27,6 +27,11 @@ shared_examples 'valid response' do
   it { expect(response.status).to be 200 }
 end
 
+shared_examples 'not found response' do
+  it { expect(response.content_type).to eq(CONTENT_TYPE) }
+  it { expect(response.status).to be 404 }
+end
+
 shared_examples 'unauthorized response' do
   it { expect(response.content_type).to eq(CONTENT_TYPE) }
   it { expect(response.status).to be 403 }
