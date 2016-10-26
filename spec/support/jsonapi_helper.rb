@@ -39,7 +39,7 @@ end
 
 class JsonApiHelper
   def booking_to_jsonapi(booking)
-    attributes = booking.attributes.slice(*%w(begins_at ends_at contact_email booking_type))
+    attributes = booking.attributes.slice('begins_at', 'ends_at', 'contact_email', 'booking_type')
     relationships = { occupiable: { data: { type: :occupiables, id: booking.occupiable_id } } }
     { data: { id: booking.to_param, type: :bookings, attributes: attributes, relationships: relationships } }.to_json
   end
