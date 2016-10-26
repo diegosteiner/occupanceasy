@@ -38,9 +38,9 @@ shared_examples 'unauthorized response' do
 end
 
 class JsonApiHelper
-  def booking_to_jsonapi(booking)
+  def booking_to_jsonapi(booking, type = :bookings)
     attributes = booking.attributes.slice('begins_at', 'ends_at', 'contact_email', 'booking_type')
     relationships = { occupiable: { data: { type: :occupiables, id: booking.occupiable_id } } }
-    { data: { id: booking.to_param, type: :bookings, attributes: attributes, relationships: relationships } }.to_json
+    { data: { id: booking.to_param, type: type, attributes: attributes, relationships: relationships } }.to_json
   end
 end

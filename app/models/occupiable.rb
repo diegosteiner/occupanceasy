@@ -2,5 +2,5 @@
 class Occupiable < ApplicationRecord
   belongs_to :api_access, inverse_of: :occupiables
   has_many :bookings
-  has_many :occupancies
+  has_many :occupancies, { class_name: :Booking }, -> { occupancies }
 end

@@ -3,9 +3,9 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       jsonapi_resources :occupiables, only: :show do
-        jsonapi_relationships only: :bookings
+        jsonapi_related_resources :occupancies
       end
-      jsonapi_resources :bookings, only: :create
+      jsonapi_resources :reservation_requests, only: :create
 
       namespace :manage do
         jsonapi_resources :bookings

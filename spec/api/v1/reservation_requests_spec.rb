@@ -2,7 +2,7 @@
 require 'rails_helper'
 require 'support/jsonapi_helper'
 
-describe Api::V1::BookingsController, type: :request do
+describe Api::V1::ReservationRequestsController, type: :request do
   let!(:occupiable) { create(:home) }
 
   xdescribe '#index' do
@@ -20,12 +20,15 @@ describe Api::V1::BookingsController, type: :request do
   end
 
   describe '#create' do
-    let(:new_booking) { build(:reservation_request, occupiable: occupiable) }
-    let(:params) { JsonApiHelper.new.booking_to_jsonapi(new_booking) }
-    subject! { post(api_v1_bookings_path, headers: headers, params: params) }
+    let(:new_booking) { build(:reservation, occupiable: occupiable) }
+    let(:params) { JsonApiHelper.new.booking_to_jsonapi(new_booking, :reservation_requests) }
+    let(:booking_in_db) { Booking.last }
+    subject! { post(api_v1_reservation_requests_path, headers: headers, params: params) }
 
-    it { pp parsed_json }
     it { expect(response.status).to be 201 }
-    it { expect(Booking.last.contact_email).to eq new_booking.contact_email }
+    it do
+      expect(booking_in_db.contact_email).to eq new_booking.contact_email
+      expect(booking_in_db.reservation_request?).to be true
+    end
   end
 end

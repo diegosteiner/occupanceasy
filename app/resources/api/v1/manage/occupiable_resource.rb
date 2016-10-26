@@ -2,7 +2,11 @@
 module Api
   module V1
     module Manage
-      class OccupiableResource < Api::V1::OccupiableResource
+      class OccupiableResource < ApplicationResource
+        attributes :description
+        has_many :bookings
+        has_many :occupancies, class_name: 'Occupancy'
+
         def self.records(options = {})
           options[:context][:api_access].occupiables
         end

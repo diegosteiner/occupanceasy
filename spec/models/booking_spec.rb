@@ -43,8 +43,18 @@ describe Booking, type: :model do
     end
   end
 
-  describe 'scope :overlapping' do
-    subject { Booking.overlapping(booking.range).map(&:id) }
-    it { is_expected.to eq([booking.id]) }
+  describe 'scopes' do
+    describe 'overlapping' do
+      subject { Booking.overlapping(booking.range).map(&:id) }
+      it { is_expected.to eq([booking.id]) }
+    end
+
+    describe 'occupancies' do
+      let!(:reservation_requests) { create_list(:reservation_request, 2) }
+      let!(:reservations) { create_list(:reservation, 2) }
+      let!(:closedowns) { create_list(:closedown, 2) }
+      subject { Booking.occupancies }
+      it { is_expected.to contain_exactly(*[reservations, closedowns].flatten) }
+    end
   end
 end
