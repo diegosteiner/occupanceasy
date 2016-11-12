@@ -2,7 +2,7 @@
 module Api
   module V1
     module Manage
-      class ApplicationController < ::JSONAPI::ResourceController
+    class ApplicationController < ActionController::API
         before_action :authenticate
 
         protected
@@ -14,7 +14,6 @@ module Api
         def context
           {
             api_access: authentication_token
-
           }
         end
 

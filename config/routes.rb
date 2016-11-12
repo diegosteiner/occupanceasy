@@ -2,15 +2,13 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
-      jsonapi_resources :occupiables, only: :show do
-        jsonapi_related_resources :occupancies
+      resources :occupiables, only: :show do
+        resources :bookings, only: [:show, :create, :index]
       end
-      jsonapi_resources :reservation_requests, only: :create
 
       namespace :manage do
-        jsonapi_resources :bookings
-        jsonapi_resources :occupiables do
-          jsonapi_relationships
+        resources :bookings
+        resources :occupiables do
         end
       end
       # jsonapi_resources :occupancies, except: :index

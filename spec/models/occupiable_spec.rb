@@ -2,7 +2,7 @@
 require 'rails_helper'
 
 describe Occupiable, type: :model do
-    let(:occupiable) { create(:home) }
+  let(:occupiable) { create(:home) }
 
   describe 'attributes' do
     it do
