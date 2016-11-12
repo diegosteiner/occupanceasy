@@ -17,6 +17,7 @@ describe Api::V1::OccupiablesController, type: :request do
   describe '#show/occupancies' do
     let(:params) {}
     let!(:occupancies) { create_list(:reservation, 2, occupiable: occupiable, begins_at: 3.weeks.from_now) }
+    let!(:reservation_requests) { create_list(:reservation_request, 2, occupiable: occupiable) }
     subject! { get(api_v1_occupiable_occupancies_path(occupiable), headers: headers, params: params) }
 
     it_behaves_like 'valid response'

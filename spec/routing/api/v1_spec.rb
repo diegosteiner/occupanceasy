@@ -18,7 +18,7 @@ describe '/api/v1/', type: :routing do
       let(:path) { resource_path + occupiable.to_param + '/occupancies' }
       it do
         is_expected.to route_to(
-          json_api_related_route('api/v1/occupancies', 'api/v1/occupiables', occupiable_id: occupiable.to_param)
+          json_api_related_route('occupancies', 'api/v1/bookings', 'api/v1/occupiables', occupiable_id: occupiable.to_param)
         )
       end
     end
@@ -112,9 +112,9 @@ def json_api_route(controller_action, params = {})
   }.merge(params)
 end
 
-def json_api_related_route(controller, source, params = {})
+def json_api_related_route(relationship, controller, source, params = {})
   {
-    relationship: controller.split('/').last,
+    relationship: relationship || controller.split('/').last,
     source: source
   }.merge(json_api_route("#{controller}#get_related_resources", params))
 end
