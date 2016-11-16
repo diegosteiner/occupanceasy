@@ -2,8 +2,8 @@
 require 'rails_helper'
 require 'support/jsonapi_helper'
 
-shared_examples 'valid occupancies' do
-  it { expect(data_ids).to contain_exactly(*occupancies.map(&:id)) }
+shared_examples 'valid bookings' do
+  it { expect(data_ids).to contain_exactly(*bookings.map(&:id)) }
 end
 
 describe Api::V1::OccupiablesController, type: :request do
@@ -14,14 +14,14 @@ describe Api::V1::OccupiablesController, type: :request do
     it_behaves_like 'valid response'
   end
 
-  describe '#show/occupancies' do
+  describe '#show/bookings' do
     let(:params) {}
-    let!(:occupancies) { create_list(:reservation, 2, occupiable: occupiable, begins_at: 3.weeks.from_now) }
+    let!(:bookings) { create_list(:reservation, 2, occupiable: occupiable, begins_at: 3.weeks.from_now) }
     let!(:reservation_requests) { create_list(:reservation_request, 2, occupiable: occupiable) }
-    subject! { get(api_v1_occupiable_occupancies_path(occupiable), headers: headers, params: params) }
+    subject! { get(api_v1_occupiable_bookings_path(occupiable), headers: headers, params: params) }
 
     it_behaves_like 'valid response'
-    it { expect(data.count).to be(occupancies.count) }
+    it { expect(data.count).to be(bookings.count) }
 
     describe 'filter' do
       describe 'begins_after' do
@@ -29,7 +29,7 @@ describe Api::V1::OccupiablesController, type: :request do
         let(:params) { { 'filter[begins_after]' => Time.zone.now.beginning_of_month.iso8601 } }
 
         it_behaves_like 'valid response'
-        it_behaves_like 'valid occupancies'
+        it_behaves_like 'valid bookings'
       end
 
       describe 'ends_before' do
@@ -37,20 +37,20 @@ describe Api::V1::OccupiablesController, type: :request do
         let(:params) { { 'filter[ends_before]' => 1.month.from_now.end_of_month.iso8601 } }
 
         it_behaves_like 'valid response'
-        it_behaves_like 'valid occupancies'
+        it_behaves_like 'valid bookings'
       end
 
       describe 'defaults' do
-        let!(:occupancies_out_of_range) do
+        let!(:bookings_out_of_range) do
           [
             create(:reservation, occupiable: occupiable, begins_at: 3.months.ago),
             create(:reservation, occupiable: occupiable, begins_at: 3.years.from_now)
           ]
         end
-        let!(:occupancies) { create_list(:reservation, 2, occupiable: occupiable, begins_at: 1.weeks.from_now) }
+        let!(:bookings) { create_list(:reservation, 2, occupiable: occupiable, begins_at: 1.weeks.from_now) }
 
         it_behaves_like 'valid response'
-        it_behaves_like 'valid occupancies'
+        it_behaves_like 'valid bookings'
       end
     end
   end

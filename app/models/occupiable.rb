@@ -7,6 +7,10 @@ class Occupiable < ApplicationRecord
     bookings.occupancies
   end
 
+  def reservation_requests
+    bookings.reservation_request
+  end
+
   def occupancy_ids
     occupancies.ids
   end

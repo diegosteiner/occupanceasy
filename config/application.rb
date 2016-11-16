@@ -15,6 +15,8 @@ module Occupanceasy
 
     config.autoload_paths << Rails.root.join('app/resources')
 
+    config.api_only = true
+
     config.generators do |g|
       g.test_framework :rspec
     end

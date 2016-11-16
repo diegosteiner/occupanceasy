@@ -2,6 +2,11 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
+      resources :occupiables
+    end
+  end
+  namespace :api do
+    namespace :v1 do
       resources :occupiables, only: :show do
         resources :bookings, only: [:show, :create, :index]
       end
