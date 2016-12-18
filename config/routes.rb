@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :occupiables, only: :show do
-        resources :bookings, only: [:show, :create, :index]
+        resources :bookings, shallow: true, only: [:show, :create, :index]
       end
 
       namespace :manage do

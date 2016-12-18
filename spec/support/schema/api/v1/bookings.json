@@ -1,0 +1,80 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "attributes": {
+          "type": "object",
+          "properties": {
+            "begins_at": {
+              "type": "string"
+            },
+            "ends_at": {
+              "type": "string"
+            },
+            "blocking": {
+              "type": "boolean"
+            },
+            "booking_type": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "begins_at",
+            "ends_at",
+            "blocking",
+            "booking_type"
+          ]
+        },
+        "relationships": {
+          "type": "object",
+          "properties": {
+            "occupiable": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "type"
+                  ]
+                }
+              },
+              "required": [
+                "data"
+              ]
+            }
+          },
+          "required": [
+            "occupiable"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "attributes",
+        "relationships"
+      ]
+    }
+  },
+  "required": [
+    "data"
+  ]
+}

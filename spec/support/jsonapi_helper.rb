@@ -10,6 +10,10 @@ def headers(token = nil)
   }
 end
 
+def jsonapi_response
+  JsonApi::Response.new(response)
+end
+
 def parsed_json
   JSON.parse(response.body)
 end
@@ -42,5 +46,24 @@ class JsonApiHelper
     attributes = booking.attributes.slice('begins_at', 'ends_at', 'contact_email', 'booking_type')
     relationships = { occupiable: { data: { type: :occupiables, id: booking.occupiable_id } } }
     { data: { id: booking.to_param, type: type, attributes: attributes, relationships: relationships } }.to_json
+  end
+end
+
+module JsonApi
+  class Response
+    attr_reader :response, :parsed_response
+
+    def initialize(response)
+      @response = response
+      @parsed_response = JSON.parse(response.body, object_class: OpenStruct)
+    end
+
+    def ok?
+      [200, 201].include?(@response.status)
+    end
+    
+    def data
+      @parsed_response.data
+    end
   end
 end

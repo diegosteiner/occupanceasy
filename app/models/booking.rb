@@ -11,7 +11,7 @@ class Booking < ApplicationRecord
   validates :begins_at, :ends_at, presence: true
   validate do
     unless begins_at.present? && ends_at.present? && begins_at < ends_at
-      errors.add :base, 'begins_at needs to be before ends_at'
+      errors.add :base, "begins_at #{begins_at} needs to be before ends_at #{ends_at}"
     end
   end
 

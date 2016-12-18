@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Api
   module V1
     class OccupiablesController < ApplicationController
@@ -8,6 +9,7 @@ module Api
       end
 
       private
+
       def set_occupiable
         @occupiable = Occupiable.find(params[:id])
       end

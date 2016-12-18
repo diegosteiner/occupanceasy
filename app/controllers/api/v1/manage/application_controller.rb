@@ -2,7 +2,7 @@
 module Api
   module V1
     module Manage
-    class ApplicationController < ActionController::API
+      class ApplicationController < ActionController::API
         before_action :authenticate
 
         protected
