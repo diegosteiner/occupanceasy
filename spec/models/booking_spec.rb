@@ -10,7 +10,18 @@ describe Booking, type: :model do
       expect(booking).to be_a(Booking)
       expect(booking.occupiable).to be_instance_of(Occupiable)
       expect(booking.contact_email).not_to be_empty
+      expect(booking.begins_at_specific_time).to be true
+      expect(booking.ends_at_specific_time).to be true
     end
+  end
+
+  describe '#token' do
+    it { expect(booking.token.size).to be > 40 }
+  end
+
+  describe '#to_param' do
+    subject { booking.to_param }
+    it { is_expected.to eq(booking.token) }
   end
 
   describe 'factory' do

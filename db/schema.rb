@@ -34,12 +34,14 @@ ActiveRecord::Schema.define(version: 20160901192237) do
     t.boolean  "blocking",                default: false
     t.boolean  "begins_at_specific_time", default: true
     t.boolean  "ends_at_specific_time",   default: true
+    t.string   "token",                                   null: false
     t.datetime "created_at",                              null: false
     t.datetime "updated_at",                              null: false
     t.index ["begins_at"], name: "index_bookings_on_begins_at", using: :btree
     t.index ["blocking"], name: "index_bookings_on_blocking", using: :btree
     t.index ["booking_type"], name: "index_bookings_on_booking_type", using: :btree
     t.index ["ends_at"], name: "index_bookings_on_ends_at", using: :btree
+    t.index ["token"], name: "index_bookings_on_token", using: :btree
   end
 
   create_table "occupiables", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|

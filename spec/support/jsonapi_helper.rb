@@ -59,7 +59,11 @@ module JsonApi
     end
 
     def ok?
-      [200, 201].include?(@response.status)
+      [200, 201].include?(status)
+    end
+
+    def status
+      @response.status
     end
 
     def data

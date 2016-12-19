@@ -21,7 +21,5 @@ module Occupanceasy
     config.generators do |generator|
       generator.test_framework :rspec
     end
-
-
   end
 end

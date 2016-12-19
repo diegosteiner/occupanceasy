@@ -25,13 +25,22 @@
             },
             "booking_type": {
               "type": "string"
+            },
+            "begins_at_specific_time": {
+              "type": "boolean"
+            },
+            "ends_at_specific_time": {
+              "type": "boolean"
             }
+
           },
           "required": [
             "begins_at",
             "ends_at",
             "blocking",
-            "booking_type"
+            "booking_type",
+            "begins_at_specific_time",
+            "ends_at_specific_time"
           ]
         },
         "relationships": {

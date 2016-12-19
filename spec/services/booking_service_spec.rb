@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe BookingService do
@@ -7,6 +8,12 @@ RSpec.describe BookingService do
   describe '#initialize' do
     subject { service.occupiable }
     it { is_expected.to eq(occupiable) }
+  end
+
+  describe '#reservation_request' do
+    let(:attributes) { attributes_for(:reservation_request) }
+    subject { service.reservation_request(attributes) }
+    it { is_expected.to be_a(Booking) }
   end
 
   describe '#upcoming_occupancies' do
@@ -20,5 +27,19 @@ RSpec.describe BookingService do
     subject { service.upcoming_occupancies }
 
     it { is_expected.to contain_exactly(*upcoming_occupancies) }
+  end
+
+  describe '#with_token' do
+    let(:booking) { create(:reservation) }
+    subject { service.with_token(booking.to_param) }
+
+    context 'with accessable booking' do
+      it { is_expected.to eq(booking) }
+    end
+
+    context 'with inaccessable booking' do
+      let(:booking) { create(:closedown) }
+      it { is_expected.to be nil }
+    end
   end
 end

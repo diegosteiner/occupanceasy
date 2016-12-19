@@ -17,12 +17,20 @@ describe Api::V1::BookingsController, type: :request do
   end
 
   describe '#show' do
-    let!(:booking) { reservations.sample }
-    subject! { get(api_v1_booking_path(booking), headers: headers) }
+    context 'with valid token' do
+      let!(:booking) { reservations.sample }
+      subject! { get(api_v1_booking_path(booking), headers: headers) }
 
-    it do
-      expect(jsonapi_response).to be_ok
-      expect(jsonapi_response.data.id).to eq(booking.id)
+      it do
+        expect(jsonapi_response).to be_ok
+        expect(jsonapi_response.data.id).to eq(booking.id)
+      end
+    end
+
+    context 'with invalid token' do
+      subject! { get(api_v1_booking_path(id: SecureRandom.urlsafe_base64), headers: headers) }
+
+      it { expect(jsonapi_response.status).to be 404 }
     end
   end
 

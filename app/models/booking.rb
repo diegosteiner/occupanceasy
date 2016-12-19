@@ -10,11 +10,15 @@ class Booking < ApplicationRecord
   end)
 
   validates :begins_at, :ends_at, presence: true
+  validates :token, uniqueness: true
   validate do
     unless begins_at.present? && ends_at.present? && begins_at < ends_at
-      errors.add :base, "begins_at #{begins_at} needs to be before ends_at #{ends_at}"
+      # TODO: I18nify
+      errors.add :base, 'begins_at needs to be before ends_at'
     end
   end
+
+  before_create :generate_token, unless: :token?
 
   def range
     begins_at..ends_at
@@ -22,5 +26,13 @@ class Booking < ApplicationRecord
 
   def conflicting
     occupiable.occupancies.overlapping(range).where.not(id: id, type: ReservationRequest.sti_name)
+  end
+
+  def generate_token
+    self.token = SecureRandom.urlsafe_base64(40)
+  end
+
+  def to_param
+    token
   end
 end
