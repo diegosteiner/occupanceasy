@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Api
   module V1
     class ErrorSerializer
@@ -6,7 +7,7 @@ module Api
           errors.map do |error_message|
             {
               status: 422,
-              source: {pointer: "/data/attributes/#{field}"},
+              source: { pointer: "/data/attributes/#{field}" },
               detail: error_message
             }
           end

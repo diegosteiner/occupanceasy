@@ -17,8 +17,8 @@ module Occupanceasy
 
     config.api_only = true
 
-    config.generators do |g|
-      g.test_framework :rspec
+    config.generators do |generator|
+      generator.test_framework :rspec
     end
   end
 end

@@ -61,7 +61,7 @@ module JsonApi
     def ok?
       [200, 201].include?(@response.status)
     end
-    
+
     def data
       @parsed_response.data
     end

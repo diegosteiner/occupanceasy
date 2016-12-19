@@ -14,7 +14,8 @@ module Api
 
       def create
         set_occupiable
-        @booking = Booking.new((booking_params[:attributes] || {}).merge(occupiable: @occupiable, booking_type: :reservation_request))
+        attributes = booking_params[:attributes] || {}
+        @booking = Booking.new(attributes.merge(occupiable: @occupiable, booking_type: :reservation_request))
         if @booking.save
           render json: @booking, status: :created, location: api_v1_booking_url(@booking), serializer: serializer
         else
@@ -25,9 +26,7 @@ module Api
       private
 
       def booking_params
-        params.require(:data).permit(:type, {
-          attributes: [:begins_at, :ends_at, :contact_email, :additional_data]
-        })
+        params.require(:data).permit(:type, attributes: [:begins_at, :ends_at, :contact_email, :additional_data])
       end
 
       def set_occupiable

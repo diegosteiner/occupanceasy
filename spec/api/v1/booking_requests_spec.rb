@@ -30,14 +30,13 @@ describe Api::V1::BookingsController, type: :request do
     context 'with valid data' do
       let(:new_booking) { attributes_for(:reservation, occupiable: occupiable, additional_data: { test: 'test' }) }
       subject! do
-        post(api_v1_occupiable_bookings_path(occupiable), { 
-          headers: headers,
-          params: { 
-            data: {
-              attributes: new_booking.slice(:begins_at, :ends_at, :contact_email, :booking_type)
-            }
-          }.to_json
-        })
+        post(api_v1_occupiable_bookings_path(occupiable),
+             headers: headers,
+             params: {
+               data: {
+                 attributes: new_booking.slice(:begins_at, :ends_at, :contact_email, :booking_type)
+               }
+             }.to_json)
       end
 
       it do
