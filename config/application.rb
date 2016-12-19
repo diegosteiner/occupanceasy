@@ -14,11 +14,14 @@ module Occupanceasy
     # -- all .rb files in that directory are automatically loaded.
 
     config.autoload_paths << Rails.root.join('app/resources')
+    config.autoload_paths << Rails.root.join('/app/services')
 
     config.api_only = true
 
     config.generators do |generator|
       generator.test_framework :rspec
     end
+
+
   end
 end

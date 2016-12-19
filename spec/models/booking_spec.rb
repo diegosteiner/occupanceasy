@@ -56,5 +56,13 @@ describe Booking, type: :model do
       subject { Booking.occupancies }
       it { is_expected.to contain_exactly(*[reservations, closedowns].flatten) }
     end
+
+    describe 'upcoming' do
+      let!(:upcoming) { create_list(:reservation, 2, begins_at: 2.days.from_now) }
+      let!(:current) { create_list(:reservation, 2, begins_at: 2.days.ago, ends_at: 2.days.from_now) }
+      let!(:over) { create_list(:reservation, 2, begins_at: 4.days.ago, ends_at: 2.days.ago) }
+      subject { Booking.upcoming }
+      it { is_expected.to contain_exactly(*(upcoming + current)) }
+    end
   end
 end
