@@ -39,7 +39,7 @@ RSpec.describe BookingService do
 
     context 'with inaccessable booking' do
       let(:booking) { create(:closedown) }
-      it { is_expected.to be nil }
+      it { expect { subject }.to raise_error(ActiveRecord::RecordNotFound) }
     end
   end
 end

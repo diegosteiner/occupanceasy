@@ -21,30 +21,31 @@ describe '/api/v1/', type: :routing do
         it { is_expected.to route_to(json_api_route('api/v1/bookings#index', occupiable_id: occupiable.to_param)) }
       end
 
-      describe '#show' do
-        let(:reservation) { create(:reservation, occupiable: occupiable) }
-        let(:path) { resource_path + occupiable.to_param + '/bookings' + "/#{reservation.to_param}" }
-        it do
-          is_expected.to route_to(json_api_route('api/v1/bookings#show',
-                                                 occupiable_id: occupiable.to_param,
-                                                 id: reservation.to_param))
-        end
-      end
-
       describe '#create' do
         subject { post(path) }
-        it { is_expected.to route_to(json_api_route('api/v1/bookings#create', occupiable_id: occupiable.to_param)) }
+        it { is_expected.to route_to('api/v1/bookings#create', occupiable_id: occupiable.to_param) }
       end
+    end
+  end
 
-      xdescribe '#update' do
-        subject { patch(path) }
-        it { is_expected.to route_to(json_api_route('api/v1/reservation_requests#update', id: booking.to_param)) }
+  describe 'occupiables' do
+    let(:resource_path) { base_path + 'bookings/' }
+    describe '#show' do
+      let(:reservation) { create(:reservation, occupiable: occupiable) }
+      let(:path) { resource_path + "/#{reservation.to_param}" }
+      it do
+        is_expected.to route_to('api/v1/bookings#show', id: reservation.to_param)
       end
+    end
 
-      xdescribe '#destroy' do
-        subject { delete(path) }
-        it { is_expected.to route_to(json_api_route('api/v1/reservation_requests#destroy', id: booking.to_param)) }
-      end
+    xdescribe '#update' do
+      subject { patch(path) }
+      it { is_expected.to route_to(json_api_route('api/v1/reservation_requests#update', id: booking.to_param)) }
+    end
+
+    xdescribe '#destroy' do
+      subject { delete(path) }
+      it { is_expected.to route_to(json_api_route('api/v1/reservation_requests#destroy', id: booking.to_param)) }
     end
   end
 

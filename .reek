@@ -33,6 +33,8 @@ exclude_paths:
   - coverage
   - bin
   - db/migrate
+  - spec/routing/api
+  - spec/support
 
 UncommunicativeModuleName:
   accept:
