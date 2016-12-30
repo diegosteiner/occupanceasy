@@ -15,7 +15,7 @@ describe Api::V1::BookingSerializer do
 
     describe 'schema' do
       let(:schema) { JsonSchema.parse!(JSON.parse(File.read('spec/support/schema/api/v1/bookings.json'))) }
-      it do
+      it 'is valid' do 
         expect(schema.validate(parsed_json)).to eq([true, []])
       end
     end

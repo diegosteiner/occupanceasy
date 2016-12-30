@@ -5,7 +5,6 @@ gem 'rails', '~> 5.0'
 gem 'pg'
 gem 'figaro'
 gem 'active_model_serializers', '~> 0.10.0'
-gem 'json_schema'
 
 group :production do
   gem 'lograge'
@@ -20,6 +19,7 @@ group :development, :test do
   gem 'byebug'
   gem 'pry-rails'
   gem 'spring-commands-rspec'
+  gem 'json_schema'
 end
 
 group :development do
