@@ -25,7 +25,7 @@ class Booking < ApplicationRecord
   end
 
   def conflicting
-    occupiable.occupancies.overlapping(range).where.not(id: id, type: ReservationRequest.sti_name)
+    # occupiable.occupancies.overlapping(range).where.not(id: id, type: ReservationRequest.sti_name)
   end
 
   def generate_token
