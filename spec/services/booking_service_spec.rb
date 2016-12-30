@@ -25,7 +25,7 @@ RSpec.describe BookingService do
 
   describe '#show_reservation_with_token' do
     let(:booking) { create(:reservation) }
-    subject { service.show_reservation_with_token(booking.to_param) }
+    subject { service.show_reservation_with_token(booking.public_token) }
 
     context 'with accessable booking' do
       it { is_expected.to eq(booking) }

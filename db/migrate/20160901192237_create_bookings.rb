@@ -11,7 +11,7 @@ class CreateBookings < ActiveRecord::Migration[5.0]
       t.boolean :blocking, index: true, default: false
       t.boolean :begins_at_specific_time, default: true
       t.boolean :ends_at_specific_time, default: true
-      t.string :token, null: false, index: true
+      t.string :public_token, null: false, index: true
 
       t.timestamps
     end

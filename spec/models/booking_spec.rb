@@ -15,13 +15,8 @@ describe Booking, type: :model do
     end
   end
 
-  describe '#token' do
-    it { expect(booking.token.size).to be > 40 }
-  end
-
-  describe '#to_param' do
-    subject { booking.to_param }
-    it { is_expected.to eq(booking.token) }
+  describe '#public_token' do
+    it { expect(booking.public_token.size).to be > 40 }
   end
 
   describe 'factory' do
@@ -51,6 +46,17 @@ describe Booking, type: :model do
     it do
       expect(booking.range.begin).to eq(booking.begins_at)
       expect(booking.range.end).to eq(booking.ends_at)
+    end
+  end
+
+  xdescribe '#versions' do
+    subject { booking.versions }
+    let(:updated_booking) { attributes_for(:booking) }
+    it '???', versioning: true do
+      expect(PaperTrail).to be_enabled
+      is_expected.to have_attributes(count: 0)
+      booking.update(contact_email: updated_booking[:contact_email])
+      is_expected.to have_attributes(count: 1)
     end
   end
 

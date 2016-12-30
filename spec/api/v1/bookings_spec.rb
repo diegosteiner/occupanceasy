@@ -19,7 +19,7 @@ describe Api::V1::BookingsController, type: :request do
   describe '#show' do
     context 'with valid token' do
       let!(:booking) { reservations.sample }
-      subject! { get(api_v1_booking_path(booking), headers: headers) }
+      subject! { get(api_v1_booking_path(booking.public_token), headers: headers) }
 
       it do
         expect(jsonapi_response).to be_ok

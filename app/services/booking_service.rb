@@ -5,7 +5,7 @@ class BookingService
   end
 
   def show_reservation_with_token(token)
-    Booking.where(booking_type: [:reservation_request, :reservation]).find_by!(token: token)
+    Booking.where(booking_type: [:reservation_request, :reservation]).find_by!(public_token: token)
   end
 
   def create_reservation_request(occupiable, attributes)
