@@ -1,0 +1,11 @@
+required: &required
+  APP_HOST:
+
+development:
+  <<: *required
+
+test:
+  <<: *required
+
+production:
+  <<: *required
