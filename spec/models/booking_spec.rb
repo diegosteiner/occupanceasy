@@ -49,14 +49,16 @@ describe Booking, type: :model do
     end
   end
 
-  xdescribe '#versions' do
+  describe '#versions' do
     subject { booking.versions }
     let(:updated_booking) { attributes_for(:booking) }
-    it '???', versioning: true do
-      expect(PaperTrail).to be_enabled
-      is_expected.to have_attributes(count: 0)
-      booking.update(contact_email: updated_booking[:contact_email])
-      is_expected.to have_attributes(count: 1)
+    it versioning: true do
+      with_versioning do
+        expect(PaperTrail).to be_enabled
+        is_expected.to have_attributes(count: 1)
+        booking.update(contact_email: updated_booking[:contact_email])
+        is_expected.to have_attributes(count: 2)
+      end
     end
   end
 

@@ -35,23 +35,29 @@ describe Api::V1::BookingsController, type: :request do
   end
 
   describe '#create' do
+    subject! do
+      post(api_v1_occupiable_bookings_path(occupiable),
+           headers: headers,
+           params: {
+             data: {
+               attributes: request.slice(:begins_at, :ends_at, :contact_email, :booking_type)
+             }
+           }.to_json)
+    end
     context 'with valid data' do
-      let(:new_booking) { attributes_for(:reservation, occupiable: occupiable, additional_data: { test: 'test' }) }
-      subject! do
-        post(api_v1_occupiable_bookings_path(occupiable),
-             headers: headers,
-             params: {
-               data: {
-                 attributes: new_booking.slice(:begins_at, :ends_at, :contact_email, :booking_type)
-               }
-             }.to_json)
-      end
-
+      let(:request) { attributes_for(:reservation, occupiable: occupiable, additional_data: { test: 'test' }) }
       it do
         expect(jsonapi_response).to be_ok
-        expect(jsonapi_response.data.attributes.begins_at.to_time.to_i).to eq new_booking[:begins_at].to_time.to_i
-        expect(jsonapi_response.data.attributes.ends_at.to_time.to_i).to eq new_booking[:ends_at].to_time.to_i
+        expect(jsonapi_response.data.attributes.begins_at.to_time.to_i).to eq request[:begins_at].to_time.to_i
+        expect(jsonapi_response.data.attributes.ends_at.to_time.to_i).to eq request[:ends_at].to_time.to_i
         expect(jsonapi_response.data.attributes.booking_type).to eq('reservation_request')
+      end
+    end
+
+    context 'with invalid data' do
+      let(:request) { attributes_for(:reservation, occupiable: occupiable, ends_at: 3.years.ago) }
+      it do
+        expect(jsonapi_response.status).to be 422
       end
     end
   end

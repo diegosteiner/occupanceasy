@@ -5,7 +5,7 @@ gem 'rails', '~> 5.0'
 gem 'pg'
 gem 'figaro'
 gem 'active_model_serializers', '~> 0.10.0'
-gem 'paper_trail'
+gem 'paper_trail', '~> 6.0'
 
 group :production do
   gem 'lograge'

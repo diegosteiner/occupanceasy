@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class Booking < ApplicationRecord
-  # has_paper_trail
+  has_paper_trail
   belongs_to :occupiable, inverse_of: :bookings
   enum booking_type: [:reservation_request, :reservation, :closedown]
 

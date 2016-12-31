@@ -104,9 +104,8 @@ GEM
     nio4r (1.2.1)
     nokogiri (1.7.0)
       mini_portile2 (~> 2.1.0)
-    paper_trail (4.0.1)
-      activerecord (>= 3.0, < 6.0)
-      activesupport (>= 3.0, < 6.0)
+    paper_trail (6.0.2)
+      activerecord (>= 4.0, < 5.2)
       request_store (~> 1.1)
     parser (2.3.3.1)
       ast (~> 2.2)
@@ -236,7 +235,7 @@ DEPENDENCIES
   json_schema
   listen (~> 3.0.5)
   lograge
-  paper_trail
+  paper_trail (~> 6.0)
   pg
   pry-rails
   puma (~> 3.0)
