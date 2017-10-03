@@ -14,6 +14,7 @@ AllCops:
   TargetRubyVersion: 2.3
   Include:
     - '**/Rakefile'
+    - '**/Gemfile'
     - '**/config.ru'
   Exclude:
     - 'bin/**/*'
@@ -26,9 +27,13 @@ AllCops:
     - 'Rakefile'
     - 'vendor/bundle/**/*'
     #- 'spec/**/*'
-  
+
 Metrics/AbcSize:
   Max: 30
 
 Metrics/MethodLength:
   Max: 15
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'

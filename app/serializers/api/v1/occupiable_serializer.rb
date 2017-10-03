@@ -1,10 +1,12 @@
 # frozen_string_literal: true
+
 module Api
   module V1
     class OccupiableSerializer < ApplicationSerializer
-      attributes :description
-      has_many :occupancies
-      has_many :reservation_requests
+      attributes :id, :description
+
+      has_many :bookings
+      link(:self) { api_v1_occupiable_path(object.id) }
     end
   end
 end

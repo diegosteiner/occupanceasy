@@ -1,7 +1,8 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+# require 'faker'
+require 'factory_girl_rails'
+
+occupiables = FactoryGirl.create_list(:occupiable, 3)
+
+bookings = occupiables.map do |occupiable|
+    FactoryGirl.create_list(:booking, 3, occupiable: occupiable)
+end

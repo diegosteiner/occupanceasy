@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Api
   module V1
     class BookingsController < ApplicationController
@@ -24,8 +25,8 @@ module Api
       private
 
       def booking_params
-        params.require(:data).permit(:type, attributes: [:begins_at, :ends_at, :contact_email, :additional_data,
-                                                         :begins_at_specific_time, :ends_at_specific_time])
+        params.require(:data).permit(:type, attributes: %i[begins_at ends_at contact_email additional_data
+                                                           begins_at_specific_time ends_at_specific_time])
       end
 
       def set_occupiable
@@ -33,7 +34,7 @@ module Api
       end
 
       def booking_service
-        @booking_service ||= BookingService.new
+        @booking_service ||= PublicBookingService.new
       end
     end
   end

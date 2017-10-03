@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 require 'support/jsonapi_helper'
 
@@ -6,6 +7,7 @@ xdescribe Api::V1::Manage::OccupiablesController, type: :request do
   let(:api_access) { create(:api_access) }
   let(:token) { api_access.private_key }
   let!(:occupiable) { create(:home, api_access: api_access) }
+  let(:serialized) { ActiveModelSerializers::SerializableResource.new(occupancy).to_json }
 
   context 'unauthorized' do
     describe '#index' do
@@ -31,7 +33,7 @@ xdescribe Api::V1::Manage::OccupiablesController, type: :request do
 
   describe '#create' do
     let(:occupiable) { build(:home) }
-    let(:params) { { data: { type: :occupiables, attributes: occupiable.attributes.slice('description') } }.to_json }
+    let(:params) { serialized }
     subject! { post(api_v1_manage_occupiables_path, headers: headers(token), params: params) }
 
     it { expect(response.status).to be 201 }
@@ -52,7 +54,7 @@ xdescribe Api::V1::Manage::OccupiablesController, type: :request do
     it { expect(response.status).to be 204 }
   end
 
-  describe '#show/bookings' do
+  xdescribe '#show/bookings' do
     let!(:bookings) { create_list(:reservation, 2, occupiable: occupiable, begins_at: 3.weeks.from_now) }
     subject! { get(api_v1_manage_occupiable_bookings_path(occupiable), headers: headers(token)) }
 

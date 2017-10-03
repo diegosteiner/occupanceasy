@@ -1,12 +1,12 @@
 # frozen_string_literal: true
+
 class Booking < ApplicationRecord
   has_paper_trail
   belongs_to :occupiable, inverse_of: :bookings
-  enum booking_type: [:reservation_request, :reservation, :closedown]
 
-  scope :occupancies, -> { where(booking_type: [:reservation, :closedown]) }
   scope :upcoming, ->(at = Time.zone.now) { where(arel_table[:ends_at].gteq(at)) }
   scope :overlapping, (lambda do |range|
+    # TODO: fix
     where('(begins_at, ends_at) OVERLAPS (?::timestamp, ?::timestamp)', range.begin, range.end)
   end)
 

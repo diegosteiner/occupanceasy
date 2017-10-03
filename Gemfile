@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 ruby File.read('.ruby-version').strip
 
-gem 'rails', '~> 5.0'
-gem 'pg'
-gem 'figaro'
 gem 'active_model_serializers', '~> 0.10.0'
+gem 'figaro'
 gem 'paper_trail', '~> 6.0'
+gem 'pg'
+gem 'rails', '~> 5.0'
 
 group :production do
   gem 'lograge'
@@ -15,25 +17,24 @@ group :production do
 end
 
 group :development, :test do
-  gem 'factory_girl_rails', require: false
-  gem 'rspec-rails', '~> 3.5'
   gem 'byebug'
-  gem 'pry-rails'
-  gem 'spring-commands-rspec'
+  gem 'factory_girl_rails', require: false
   gem 'json_schema'
+  gem 'pry-rails'
+  gem 'rspec-rails', '~> 3.5'
+  gem 'spring-commands-rspec'
 end
 
 group :development do
-  gem 'listen', '~> 3.0.5'
+  gem 'listen', '> 3.0.5'
   gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'thin'
 end
 
 group :lint do
-  gem 'simplecov', require: false
   gem 'brakeman', require: false
+  gem 'bundler-audit', require: false
   gem 'reek', require: false
   gem 'rubocop', require: false
-  gem 'bundler-audit', require: false
+  gem 'simplecov', require: false
 end

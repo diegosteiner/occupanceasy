@@ -1,8 +1,9 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 require 'support/jsonapi_helper'
 
-xdescribe Api::V1::Manage::BookingsController, type: :request do
+describe Api::V1::Manage::BookingsController, type: :request do
   let(:api_access) { create(:api_access) }
   let(:token) { api_access.private_key }
   let!(:occupiable) { create(:home, api_access: api_access) }

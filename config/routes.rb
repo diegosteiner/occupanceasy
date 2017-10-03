@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
@@ -8,7 +9,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :occupiables, only: :show do
-        resources :bookings, shallow: true, only: [:show, :create, :index]
+        resources :bookings, shallow: true, only: %i[show create index]
       end
 
       namespace :manage do

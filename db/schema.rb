@@ -17,48 +17,42 @@ ActiveRecord::Schema.define(version: 20161230151218) do
   enable_extension "uuid-ossp"
 
   create_table "api_accesses", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
-    t.string   "private_key", null: false
-    t.string   "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.string "private_key", null: false
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "bookings", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
-    t.string   "contact_email"
-    t.datetime "begins_at",                               null: false
-    t.datetime "ends_at",                                 null: false
-    t.jsonb    "additional_data"
-    t.string   "reference"
-    t.uuid     "occupiable_id",                           null: false
-    t.integer  "booking_type",                            null: false
-    t.boolean  "blocking",                default: false
-    t.boolean  "begins_at_specific_time", default: true
-    t.boolean  "ends_at_specific_time",   default: true
-    t.string   "public_token",                            null: false
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
-    t.index ["begins_at"], name: "index_bookings_on_begins_at", using: :btree
-    t.index ["blocking"], name: "index_bookings_on_blocking", using: :btree
-    t.index ["booking_type"], name: "index_bookings_on_booking_type", using: :btree
-    t.index ["ends_at"], name: "index_bookings_on_ends_at", using: :btree
-    t.index ["public_token"], name: "index_bookings_on_public_token", using: :btree
+    t.datetime "begins_at", null: false
+    t.datetime "ends_at", null: false
+    t.jsonb "payload"
+    t.uuid "occupiable_id", null: false
+    t.boolean "blocking", default: false
+    t.string "public_token", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["begins_at"], name: "index_bookings_on_begins_at"
+    t.index ["blocking"], name: "index_bookings_on_blocking"
+    t.index ["ends_at"], name: "index_bookings_on_ends_at"
+    t.index ["public_token"], name: "index_bookings_on_public_token"
   end
 
   create_table "occupiables", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
-    t.string   "description"
-    t.uuid     "api_access_id", null: false
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.string "description"
+    t.uuid "api_access_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "versions", force: :cascade do |t|
-    t.string   "item_type",  null: false
-    t.integer  "item_id",    null: false
-    t.string   "event",      null: false
-    t.string   "whodunnit"
-    t.text     "object"
+  create_table "versions", id: :serial, force: :cascade do |t|
+    t.string "item_type", null: false
+    t.integer "item_id", null: false
+    t.string "event", null: false
+    t.string "whodunnit"
+    t.text "object"
     t.datetime "created_at"
-    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
+    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
 end

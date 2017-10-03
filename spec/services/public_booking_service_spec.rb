@@ -1,7 +1,8 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe BookingService do
+RSpec.describe PublicBookingService do
   let(:occupiable) { create(:occupiable) }
   let(:service) { described_class.new }
 
