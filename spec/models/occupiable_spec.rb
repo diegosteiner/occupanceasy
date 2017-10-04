@@ -13,7 +13,7 @@ describe Occupiable, type: :model do
     end
   end
 
-  describe 'occupancies' do
+  xdescribe 'occupancies' do
     let!(:occupancies) { create_list(:reservation, 2, occupiable: occupiable) }
     let!(:reservation_requests) { create_list(:reservation_request, 2, occupiable: occupiable) }
     subject { occupiable.occupancy_ids }

@@ -25,8 +25,7 @@ module Api
       private
 
       def booking_params
-        params.require(:data).permit(:type, attributes: %i[begins_at ends_at contact_email additional_data
-                                                           begins_at_specific_time ends_at_specific_time])
+        params.require(:data).permit(:type, attributes: %i[begins_at ends_at contact_email payload])
       end
 
       def set_occupiable

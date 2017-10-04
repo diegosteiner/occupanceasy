@@ -22,7 +22,7 @@ group :development, :test do
   gem 'json_schema'
   gem 'pry-rails'
   gem 'rspec-rails', '~> 3.5'
-  # gem 'spring-commands-rspec'
+  gem 'spring-commands-rspec'
 end
 
 group :development do

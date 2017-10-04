@@ -2,7 +2,7 @@
 
 class PublicBookingService
   def list_upcoming_occupancies(occupiable)
-    occupiable.bookings.upcoming
+    occupiable.bookings.blocking.upcoming
   end
 
   def show_reservation_with_token(token)
