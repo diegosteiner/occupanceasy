@@ -25,7 +25,7 @@ module Api
       private
 
       def booking_params
-        params.require(:data).permit(:type, attributes: %i[begins_at ends_at contact_email payload])
+  ActiveModelSerializers::Deserialization.jsonapi_parse(params)
       end
 
       def set_occupiable

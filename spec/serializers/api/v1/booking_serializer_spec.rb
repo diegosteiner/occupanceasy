@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require 'json_schema'
 
 describe Api::V1::BookingSerializer do
   let(:booking) { create(:reservation) }

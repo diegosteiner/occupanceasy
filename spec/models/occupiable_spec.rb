@@ -12,12 +12,4 @@ describe Occupiable, type: :model do
       expect(occupiable.description).not_to be_empty
     end
   end
-
-  xdescribe 'occupancies' do
-    let!(:occupancies) { create_list(:reservation, 2, occupiable: occupiable) }
-    let!(:reservation_requests) { create_list(:reservation_request, 2, occupiable: occupiable) }
-    subject { occupiable.occupancy_ids }
-
-    it { is_expected.to contain_exactly(*occupancies.map(&:id)) }
-  end
 end

@@ -19,10 +19,13 @@ end
 group :development, :test do
   gem 'byebug'
   gem 'factory_girl_rails', require: false
-  gem 'json_schema'
   gem 'pry-rails'
   gem 'rspec-rails', '~> 3.5'
   gem 'spring-commands-rspec'
+end
+
+group :test do
+  gem 'jsonapi-rspec'
 end
 
 group :development do
