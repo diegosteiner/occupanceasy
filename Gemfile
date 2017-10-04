@@ -22,12 +22,13 @@ group :development, :test do
   gem 'json_schema'
   gem 'pry-rails'
   gem 'rspec-rails', '~> 3.5'
-  gem 'spring-commands-rspec'
+  # gem 'spring-commands-rspec'
 end
 
 group :development do
-  gem 'listen', '> 3.0.5'
+  # gem 'listen', '~> 3.0'
   gem 'spring'
+  # gem 'spring-watcher-listen'
   gem 'thin'
 end
 
