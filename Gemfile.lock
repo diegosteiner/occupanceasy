@@ -120,6 +120,7 @@ GEM
       pry (>= 0.10.4)
     puma (3.10.0)
     rack (2.0.3)
+    rack-cors (1.0.1)
     rack-test (0.7.0)
       rack (>= 1.0, < 3)
     rack-timeout (0.4.2)
@@ -234,6 +235,7 @@ DEPENDENCIES
   pg
   pry-rails
   puma (~> 3.0)
+  rack-cors
   rack-timeout
   rails (~> 5.0)
   rails_12factor

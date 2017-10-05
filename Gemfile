@@ -7,6 +7,7 @@ gem 'active_model_serializers', '~> 0.10.0'
 gem 'figaro'
 gem 'paper_trail', '~> 6.0'
 gem 'pg'
+gem 'rack-cors', require: 'rack/cors'
 gem 'rails', '~> 5.0'
 
 group :production do

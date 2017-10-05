@@ -30,5 +30,15 @@ module Occupanceasy
     config.generators do |generator|
       generator.test_framework :rspec
     end
+
+    config.middleware.use Rack::Cors do
+      allow do
+        origins '*'
+        resource '*',
+          :headers => :any,
+          :methods => [:get, :put, :patch, :options],
+          :max_age => 15
+      end
+    end
   end
 end
